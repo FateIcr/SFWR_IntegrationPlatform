@@ -9,5 +9,4 @@ public interface StudentService {
     void edit(Student student);
     Student addStudent(Student student);
     void updateStudent(Student student);
-    void setPassword(String studentId, String originPassword, String newPassword);
 }

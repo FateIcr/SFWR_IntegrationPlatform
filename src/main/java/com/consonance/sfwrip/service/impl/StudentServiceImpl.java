@@ -4,8 +4,6 @@ import com.consonance.sfwrip.domain.Student;
 import com.consonance.sfwrip.repository.StudentRepository;
 import com.consonance.sfwrip.service.StudentService;
 import com.consonance.sfwrip.util.Utilities;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,6 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
-    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -46,10 +43,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student addStudent(Student student) {
         CompletableFuture.runAsync(() -> {
-            // logger.info("start");
-            // TODO 密码加密
-            student.setPassword("0");
-            // logger.info("finish");
             studentRepository.save(student);
         });
         return studentRepository.save(student);
@@ -63,16 +56,4 @@ public class StudentServiceImpl implements StudentService {
                 .ifPresent(stu -> Utilities.copyProperties(student, stu));
     }
 
-    @Override
-    @Transactional
-    public void setPassword(String studentId, String originPassword, String newPassword) {
-        Student student = Utilities.fetch(() -> studentRepository.findByStudentId(studentId));
-        // TODO 密码加密验证
-        if (originPassword.equals(student.getPassword())) {
-            // TODO 密码加密
-            student.setPassword(newPassword);
-        } else {
-            throw new IllegalArgumentException("Wrong password");
-        }
-    }
 }

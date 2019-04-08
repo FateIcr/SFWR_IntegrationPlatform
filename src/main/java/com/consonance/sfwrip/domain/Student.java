@@ -1,6 +1,5 @@
 package com.consonance.sfwrip.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -17,10 +16,6 @@ public class Student{
     private String suuid;
     @Column(nullable = false, length = 10, unique = true)
     private String studentId; //学号
-    @Column(nullable = false, length = 127)
-    @JsonIgnore
-    private String password; //密码
-    @Column(nullable = false, length = 127)
     private String name; //姓名
     @Column(nullable = false)
     private Integer gender; // 性别 male-1, female-0
@@ -45,7 +40,7 @@ public class Student{
     @Column(nullable = true)
     private Integer plevel; //贫困等级 0-无，1-一般困难，2-困难，3-特别困难
     @Column(nullable = true)
-    private Integer ptype; //贫困类型 0-无，1-低收入家庭，2-中等收入家庭
+    private Integer ptype; //贫困类型 0-无，1-孤儿，2-低收入家庭，3-因病致贫，4-其他，5-困难归侨，6-品学兼优，7-残疾学生，8-单亲家庭，9-五保户，10-低保户，11-农村低保户，12-残疾人子女，13-建档立卡，14-父母丧失劳动能力，15-军烈属或优抚子女，16-农村特困供养，17-因灾致贫
     @Column(nullable = true, length = 100)
     private String aname; //开户名
     @Column(nullable = true, length = 30)
@@ -75,11 +70,6 @@ public class Student{
         this.studentId = studentId;
         this.name = name;
         this.gender = gender;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getStudentId() {return this.studentId;}
@@ -118,10 +108,6 @@ public class Student{
 
     public String getNation() {
         return nation;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public Integer getPlevel() {

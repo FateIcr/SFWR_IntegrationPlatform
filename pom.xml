@@ -50,11 +50,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>4.1.5.RELEASE</version>
-        </dependency>
+
     </dependencies>
 
     <build>

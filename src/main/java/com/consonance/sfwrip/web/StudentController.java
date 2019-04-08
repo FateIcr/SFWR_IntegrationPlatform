@@ -16,15 +16,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/student", method = RequestMethod.POST)
-    public ResponseEntity<?> addStudent(@RequestBody Student student, UriComponentsBuilder uriComponentsBuilder) {
-        studentService.addStudent(student);
-        return ResponseEntity.created(uriComponentsBuilder.path("/{id}")
-                .buildAndExpand(student.getStudentId())
-                .toUri())
-                .build();
-    }
-
     @RequestMapping(value = "/student/{studentId}", method = RequestMethod.GET)
     public Student getStudent(@PathVariable String studentId) {
         return studentService.findStudentByStudentId(studentId);
@@ -40,18 +31,6 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "/student/{studentId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteStudent(@PathVariable String studentId) {
-        studentService.deleteByStudentId(studentId);
-        return ResponseEntity.noContent().build();
-    }
 
-    @RequestMapping(value = "/student/{studentId}/password", method = RequestMethod.PUT)
-    public ResponseEntity<?> setPassword(@PathVariable String studentId,
-                                         @RequestParam String originPassword,
-                                         @RequestParam String newPassword) {
-        studentService.setPassword(studentId, originPassword, newPassword);
-        return ResponseEntity.noContent().build();
-    }
 }
 
