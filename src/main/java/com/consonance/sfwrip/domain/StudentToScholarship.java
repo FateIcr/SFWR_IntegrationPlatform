@@ -22,7 +22,7 @@ public class StudentToScholarship {
     @Column(nullable = false)
     private Integer status; //申请状态 0-待审核，1-已通过，2-未通过
     @Column(length = 1000)
-    private String reason;
+    private String reason; //申请理由
 
     public StudentToScholarship() {}
 

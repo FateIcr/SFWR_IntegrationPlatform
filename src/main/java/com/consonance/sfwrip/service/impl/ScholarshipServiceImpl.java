@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 public class ScholarshipServiceImpl implements ScholarshipService {
@@ -22,7 +23,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
     @Override
     public List<Scholarship> findAll() {
-        return scholarshipRepository.findAll();
+        return scholarshipRepository.findAll().stream().collect(Collectors.toList());
     }
 
     @Override

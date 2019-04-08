@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-//TODO 返回值不全，缺少name,reason
 public interface StudentToScholarshipRepository extends JpaRepository<StudentToScholarship, String> {
     List<StudentToScholarship> findAllByStudentId(String studentId);
     List<StudentToScholarship> findAllByScholarshipId(String scholarshipId);
