@@ -20,7 +20,7 @@ public class UserController {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder uriComponentsBuilder) {
         userService.addUser(user);
         String path = "";

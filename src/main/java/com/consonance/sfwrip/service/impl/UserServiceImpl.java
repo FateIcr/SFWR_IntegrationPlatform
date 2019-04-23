@@ -7,9 +7,11 @@ import com.consonance.sfwrip.service.UserService;
 import com.consonance.sfwrip.util.DefaultData;
 import com.consonance.sfwrip.util.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public void deleteByUserId(String userId) {
         userRepository.deleteByUserId(userId);
     }
@@ -43,6 +46,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+        String tempId = user.getUserId();
+        if(exist(tempId)) {
+            throw new RuntimeException("用户名已存在!");
+        }
         CompletableFuture.runAsync(() -> {
             user.setPassword(DefaultData.defaultUserPassword);
             userRepository.save(user);
@@ -51,6 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Secured("ROLE_USER")
     public void updateUser(User user) {
         userRepository.findByUserId(user.getUserId())
                 .ifPresent(stu -> Utilities.copyProperties(user, stu));
@@ -87,5 +95,9 @@ public class UserServiceImpl implements UserService {
         return user.getFlag();
     }
 
+    private boolean exist(String userId) {
+        Optional<User> user = userRepository.findByUserId(userId);
+        return (user.isPresent());
+    }
 
 }

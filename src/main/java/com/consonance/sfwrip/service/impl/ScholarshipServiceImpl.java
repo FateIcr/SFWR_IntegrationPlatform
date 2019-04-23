@@ -5,6 +5,7 @@ import com.consonance.sfwrip.repository.ScholarshipRepository;
 import com.consonance.sfwrip.service.ScholarshipService;
 import com.consonance.sfwrip.util.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,11 +33,13 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public void deleteByScholarshipId(String scholarshipId) {
         scholarshipRepository.deleteByScholarshipId(scholarshipId);
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public Scholarship addScholarship(Scholarship scholarship) {
         CompletableFuture.runAsync(() -> {
             scholarshipRepository.save(scholarship);
@@ -46,6 +49,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
     @Override
     @Transactional
+    @Secured("ROLE_ADMIN")
     public void updateScholarship(Scholarship scholarship) {
         scholarshipRepository.findByScholarshipId(scholarship.getScholarshipId())
                 .ifPresent(stu -> Utilities.copyProperties(scholarship, stu));

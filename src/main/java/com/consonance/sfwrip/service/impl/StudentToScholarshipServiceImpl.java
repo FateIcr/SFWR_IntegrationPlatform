@@ -6,6 +6,7 @@ import com.consonance.sfwrip.repository.StudentToScholarshipRepository;
 import com.consonance.sfwrip.service.StudentToScholarshipService;
 import com.consonance.sfwrip.util.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -64,6 +65,7 @@ public class StudentToScholarshipServiceImpl implements StudentToScholarshipServ
 
     @Override
     @Transactional
+    @Secured("ROLE_ADMIN")
     public void updateStatus(String studentId, String scholarshipId, Integer status) {
         StudentToScholarship studentToScholarship = Utilities.fetch(() -> studentToScholarshipRepository.findAllByStudentIdAndScholarshipId(studentId, scholarshipId));
         studentToScholarship.setStatus(status);

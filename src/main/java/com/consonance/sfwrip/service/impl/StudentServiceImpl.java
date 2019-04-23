@@ -5,6 +5,7 @@ import com.consonance.sfwrip.repository.StudentRepository;
 import com.consonance.sfwrip.service.StudentService;
 import com.consonance.sfwrip.util.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public void deleteByStudentId(String studentId) {
         studentRepository.deleteByStudentId(studentId);
     }
