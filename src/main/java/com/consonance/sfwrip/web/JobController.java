@@ -16,7 +16,7 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @RequestMapping(value = "/joball/{status}", method = RequestMethod.GET)
+    @RequestMapping(value = "/job/all/{status}", method = RequestMethod.GET)
     public List<Job> getJobByStatus(@PathVariable Integer status){
         return jobService.findAllByStatus(status);
     }

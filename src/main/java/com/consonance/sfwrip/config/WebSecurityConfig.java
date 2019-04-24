@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+// TODO spring security不生效
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
@@ -21,7 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/job/**", "/student/**", "/scholarship/**", "/studenttoscholarship/**", "/studenttojob/**").hasAuthority("UER")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessHandler(new CustomLogoutSuccessHandler()).clearAuthentication(true).permitAll()
                 .and()

@@ -65,7 +65,6 @@ public class StudentToScholarshipServiceImpl implements StudentToScholarshipServ
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN")
     public void updateStatus(String studentId, String scholarshipId, Integer status) {
         StudentToScholarship studentToScholarship = Utilities.fetch(() -> studentToScholarshipRepository.findAllByStudentIdAndScholarshipId(studentId, scholarshipId));
         studentToScholarship.setStatus(status);

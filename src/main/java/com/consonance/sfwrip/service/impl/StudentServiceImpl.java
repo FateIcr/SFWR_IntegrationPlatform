@@ -27,7 +27,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @Secured("ROLE_ADMIN")
     public void deleteByStudentId(String studentId) {
         studentRepository.deleteByStudentId(studentId);
     }
@@ -53,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
+    @Secured("ROLE_USER")
     public void updateStudent(Student student) {
         studentRepository.findByStudentId(student.getStudentId())
                 .ifPresent(stu -> Utilities.copyProperties(student, stu));

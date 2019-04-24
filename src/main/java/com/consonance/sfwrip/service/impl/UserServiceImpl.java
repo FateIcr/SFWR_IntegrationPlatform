@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Secured("ROLE_ADMIN")
     public void deleteByUserId(String userId) {
         userRepository.deleteByUserId(userId);
     }
@@ -58,7 +57,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Secured("ROLE_USER")
     public void updateUser(User user) {
         userRepository.findByUserId(user.getUserId())
                 .ifPresent(stu -> Utilities.copyProperties(user, stu));

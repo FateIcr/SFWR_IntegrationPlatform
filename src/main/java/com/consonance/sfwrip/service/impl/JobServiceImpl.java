@@ -43,13 +43,11 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @Secured("ROLE_ADMIN")
     public void deleteByJobId(String jobId) {
         jobRepository.deleteByJobId(jobId);
     }
 
     @Override
-    @Secured("ROLE_ADMIN")
     public Job addJob(Job job) {
         job.setStatus(0);
         job.setApplyNum(0);
@@ -62,7 +60,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN")
     public void updateJob(Job job) {
         jobRepository.findByJobId(job.getJobId())
                 .ifPresent(stu -> Utilities.copyProperties(job, stu));
@@ -70,7 +67,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN")
     public void updateStatus(String jobId, Integer status) {
         Job job = Utilities.fetch(() -> jobRepository.findByJobId(jobId));
         job.setStatus(status);
